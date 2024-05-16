@@ -6,29 +6,29 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
- 
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
 }
- 
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -36,21 +36,37 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
- 
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  links         Links[]
   accounts      Account[]
   sessions      Session[]
 }
- 
+
+model Links {
+  id              Int           @id @default(autoincrement())
+  socialNetwork   SocialNetwork @relation(fields: [socialNetworkId], references: [id])
+  link            String?
+  User            User?         @relation(fields: [userId], references: [id])
+  userId          String?
+  socialNetworkId String        @default(cuid())
+}
+
+model SocialNetwork {
+  id    String  @id @default(cuid())
+  name  String  @db.VarChar(100)
+  Links Links[]
+}
+
 model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
- 
+
   @@unique([identifier, token])
 }
