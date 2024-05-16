@@ -31,25 +31,26 @@ if(!smtpHost || !smtpPort || !smtpUser || !smtpPswrd){
 }
 
 export const authConfig = {
-    providers: [GitHub({
-      clientId: githubId,
-      clientSecret: githubSecret,
-    }),
-    Google({
-      clientId: googleId,
-      clientSecret: googleSecret,
-    }),
-    Email({
-      server: {
-        host: smtpHost,
-        port: smtpPort,
-        auth: {
-          user: smtpUser,
-          pass: smtpPswrd
-        }
-      },
-      from: emailFrom
-    })
+    providers: [
+      GitHub({
+        clientId: githubId,
+        clientSecret: githubSecret,
+      }),
+      Google({
+        clientId: googleId,
+        clientSecret: googleSecret,
+      }),
+      Email({
+        server: {
+          host: smtpHost,
+          port: smtpPort,
+          auth: {
+            user: smtpUser,
+            pass: smtpPswrd
+          }
+        },
+        from: emailFrom
+      })
     ],
     adapter: PrismaAdapter(prisma) as Adapter,
     callbacks: {
