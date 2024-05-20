@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { LogoutButton } from "./LogoutButton"
 import { getAuthSession } from "@/lib/auth"
 
@@ -19,6 +20,7 @@ export const User = async () => {
                 <p>{session?.user?.id}</p>
                 <div className="card-actions justify-end">
                     <LogoutButton></LogoutButton>
+                    <Link href={`/form/${session?.user?.id}`}>GO TO FORM</Link>
                 </div>
             </div>
         </div>
