@@ -67,7 +67,7 @@ const BlogUpdate:FC<EditPageProps> = async({params}) => {
     }
 
   return (
-    <p>Vous n'avez pas le droit !</p>
+    <p>Vous n&apos;avez pas le droit !</p>
   );
 }
 

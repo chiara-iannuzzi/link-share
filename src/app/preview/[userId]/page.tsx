@@ -42,7 +42,7 @@ const Preview:FC<PreviewPageProps> = async({params}) => {
     }
 
     return (
-        <p>Pas d'utilisateur trouvé</p>
+        <p>Pas d&apos;utilisateur trouvé</p>
     )
 }
 
