@@ -39,7 +39,7 @@ const Block:FC<BlockProps> = ({SCList, selectProps, inputProps, idProps, removeO
                         <label className="text-neutral-600 text-xs" htmlFor="social">Réseau</label>
                         <LazySvg className="absolute bottom-4 left-1" name={icon} /> 
                         <select ref={selectRef} className="w-full p-2 pl-10 mb-2 h-10 rounded-md bg-neutral-50" {...selectProps}>
-                            {SCList.map((item) => 
+                            {SCList.map((item:any) => 
                                 <option value={item.id} key={item.id}>{item.name}</option>
                             )}
                         </select>

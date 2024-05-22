@@ -46,7 +46,7 @@ const BlogUpdate:FC<EditPageProps> = async({params}) => {
 
     let defaultValue:FormInputPostWithId[] = []
 
-    user?.links.forEach((item) => {
+    user?.links.forEach((item:any) => {
       defaultValue.push({"link": item.link ?? '', "socialNetworkId": item.socialNetworkId, "id": item.id})
     })
 

@@ -29,7 +29,7 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
     }
 
     const getSCFromLink = (scId:string) => {
-        const linkSc:scProps | undefined = social.find((item) => item.id == scId)
+        const linkSc:scProps | undefined = social.find((item:any) => item.id == scId)
         return linkSc ? linkSc.name : 'nope'
     }
 

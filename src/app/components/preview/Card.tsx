@@ -19,7 +19,7 @@ const Card:FC<CardProps> = async({user}) => {
     const sc:scProps[] = await getSocialNetwork()
 
     const getSCFromLink = (scId:string) => {
-        const linkSc:scProps | undefined = sc.find((item) => item.id == scId)
+        const linkSc:scProps | undefined = sc.find((item:any) => item.id == scId)
         return linkSc ? linkSc.name : ''
     }
 
