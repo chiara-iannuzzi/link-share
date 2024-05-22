@@ -8,6 +8,7 @@ import Form from "../../components/form/Form";
 import { getAuthSession } from "@/lib/auth";
 import { User } from "../../components/auth/User";
 import prisma from "@/lib/prisma";
+import HeaderForm from "@/app/components/global/Header";
 
 interface EditPageProps {
   params: {
@@ -52,12 +53,15 @@ const BlogUpdate:FC<EditPageProps> = async({params}) => {
   
     if (session){
         return (
-            <main className="">
-                <h1 className='text-2xl my-4 font-bold'>Edit post</h1>
-                <p>{user?.name}</p>
+          <>
+            <HeaderForm></HeaderForm>
+            <main className="flex container gap-5 mx-auto">
+                <div className="w-1/2 bg-neutral-100 mt-5 flex justify-center items-center">
+                  <img src={'/phone.png'} className="w-3/4" />
+                </div>
                 <Form userId={userId} initialValue={defaultValue}/>
-                <p>{userId}</p>
             </main>
+          </>
         )
     }
 

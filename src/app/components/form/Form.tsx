@@ -1,13 +1,11 @@
 "use client"
 
-import { FormInputCollectionPost, FormInputPost, FormInputPostWithId } from "@/app/types"
-// import { SocialNetwork } from "@prisma/client"
-// import { useQuery } from "@tanstack/react-query"
-// import axios from "axios"
+import { FormInputCollectionPost, FormInputPost, FormInputPostWithId, scProps } from "@/app/types"
 import { FC, useEffect, useState } from "react"
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form"
 import Block from "./Block"
 import { useRouter } from "next/navigation"
+import Button from "../global/Button"
 
 interface FormPostProps {
     initialValue?: FormInputPost[],
@@ -30,12 +28,16 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
         }
     }
 
+    const getSCFromLink = (scId:string) => {
+        const linkSc:scProps | undefined = social.find((item) => item.id == scId)
+        return linkSc ? linkSc.name : 'nope'
+    }
+
     useEffect(() => {
         const SCData = getSocial()
         SCData.then((response) =>
             setSocial(response)
         )
-        
     }, [])
 
     const { register, control, handleSubmit, reset, watch, getValues } = useForm<FormInputCollectionPost>({
@@ -57,7 +59,7 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
         name: 'test',
       });
 
-    const watchAllFields = watch('test');
+    const watchAllFields:any = watch('test');
 
     const submit = async(data:any) => {
         const values = data.test;
@@ -84,10 +86,16 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
 
 
     return(
-        <form onSubmit={(handleSubmit(submit))} className="w-full flex flex-col items-center justify-center gap-5 mt-5" action="">
-            <button
-                type="button"
-                onClick={async() => {
+        <form onSubmit={(handleSubmit(submit))} className="overflow-y-auto max-h-screen p-5 bg-neutral-100 w-1/2 flex flex-col items-start justify-start gap-5 mt-5" action="">
+            <div className="w-full">
+                <h2 className="text-3xl mb-2 font-bold leading-tight">Customize your links</h2>
+                <p className="text-sm text-neutral-500">Add/Edit/Remove links below and then share it with the world !</p>
+                <Button 
+                    className={"w-full mt-5"}
+                    label={"Create new link"}
+                    style="secondary"
+                    clickHandle={
+                    async() => {
                         const data = {
                             link:'',
                             socialNetworkId: "clw9ahc7z00066mxyispzidzy",
@@ -114,14 +122,17 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
                         })
 
                     }
-                }
-                >APPEND</button>
+                
+                }/>
+            </div>
             {fields.map((item, index) => 
                 <>
                     <Block 
+                        index={index + 1}
                         selectProps={register(`test.${index}.socialNetworkId`, { required: true })}
                         inputProps={register(`test.${index}.link`, { required: true })}
                         idProps={register(`test.${index}.id`)}
+                        icon={getSCFromLink(watchAllFields[index].socialNetworkId).toLowerCase()}
                         removeOnClick={async() => {
                             const values = getValues()
                             const id = values.test[index].id
@@ -142,7 +153,7 @@ const Form: FC<FormPostProps> = ({initialValue, userId}) => {
                 </>
             )}
 
-            <button type="submit" className="btn btn-primary w-full max-w-lg">Save</button>
+            <button type="submit" className="btn btn-primary w-full">Save</button>
 
         </form>
     )

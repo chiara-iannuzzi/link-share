@@ -1,3 +1,5 @@
+import { HeaderPreview } from "@/app/components/global/Header";
+import Card from "@/app/components/preview/Card";
 import { scProps } from "@/app/types";
 import prisma from "@/lib/prisma";
 import { FC } from "react"
@@ -15,14 +17,11 @@ const getUser = async(id:string) => {
       },
       select:{
         name: true,
+        email: true,
+        image: true,
         links: true
       }
     });
-    return response;
-}
-
-const getSocialNetwork = async() => {
-    const response = await prisma.socialNetwork.findMany();
     return response;
 }
 
@@ -30,24 +29,15 @@ const Preview:FC<PreviewPageProps> = async({params}) => {
     const {userId} = params;
 
     const user = await getUser(userId);
-    const sc:scProps[] = await getSocialNetwork()
 
-    const getSCFromLink = (scId:string) => {
-        const linkSc:scProps | undefined = sc.find((item) => item.id == scId)
-        return linkSc ? linkSc.name : 'nope'
-    }
 
     if(user != null){
         return (
-            <>
-                <p>Je suis une preview !!!!</p>
-                <p>{user?.name}</p>
-                {user?.links.map((item) =>
-                    <a target="_blank" href={item.link ?? ''} key={item.id}>
-                        <p>{getSCFromLink(item.socialNetworkId)}</p>
-                    </a>
-                )}
-            </>
+            <div className="h-screen">
+                <section className="flex max-h-screen h-full w-full items-center justify-center">
+                    <Card user={user} />
+                </section>
+            </div>
         )
     }
 
