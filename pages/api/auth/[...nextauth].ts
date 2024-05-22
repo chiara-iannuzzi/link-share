@@ -6,6 +6,8 @@ import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 import Email from "next-auth/providers/email"
 
+const secret = process.env.SECRET
+
 const githubId = process.env.GITHUB_ID
 const githubSecret = process.env.GITHUB_SECRET
 
@@ -31,6 +33,7 @@ if(!smtpHost || !smtpPort || !smtpUser || !smtpPswrd){
 }
 
 export const authConfig = {
+    secret: secret,
     providers: [
       GitHub({
         clientId: githubId,
