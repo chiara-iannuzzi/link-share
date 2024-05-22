@@ -14,6 +14,6 @@ export type FormInputCollectionPost = {
 }
 
 export type scProps = {
-    id: String,
-    name: String
+    id: string,
+    name: string
 }
