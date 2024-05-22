@@ -1,3 +1,14 @@
+export const images = {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+        {
+            protocol: "https",
+            hostname: "lh3.googleusercontent.com",
+            port: "",
+            pathname: "/a/**",
+        },
+    ],
+}
 export function webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg')

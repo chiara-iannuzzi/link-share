@@ -6,9 +6,9 @@ import { FC } from "react";
 import { SubmitHandler } from "react-hook-form";
 import Form from "../../components/form/Form";
 import { getAuthSession } from "@/lib/auth";
-import { User } from "../../components/auth/User";
 import prisma from "@/lib/prisma";
 import HeaderForm from "@/app/components/global/Header";
+import Image from "next/image";
 
 interface EditPageProps {
   params: {
@@ -57,7 +57,8 @@ const BlogUpdate:FC<EditPageProps> = async({params}) => {
             <HeaderForm></HeaderForm>
             <main className="flex container gap-5 mx-auto">
                 <div className="w-1/2 bg-neutral-100 mt-5 flex justify-center items-center">
-                  <img src={'/phone.png'} className="w-3/4" />
+                  <Image width={500} height={'600'} alt="phone" src={'/phone.png'} />
+                  <img  />
                 </div>
                 <Form userId={userId} initialValue={defaultValue}/>
             </main>

@@ -1,5 +1,4 @@
 import { LoginButton } from "@/app/components/auth/LoginButton";
-import { User } from "@/app/components/auth/User";
 import { getAuthSession } from "@/lib/auth";
 import { HeaderPreview } from "@/app/components/global/Header";
 import Card from "@/app/components/preview/Card";

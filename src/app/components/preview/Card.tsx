@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { FC } from "react";
 import BigButtons from "../global/BigButton";
+import Image from "next/image";
 
 interface CardProps {
     user:any
@@ -25,7 +26,7 @@ const Card:FC<CardProps> = async({user}) => {
     return (
         <div className="w-96 shadow-xl bg-neutral-50 p-4 rounded-lg">
             <div className="mb-10 text-center flex flex-col items-center justify-center">
-                <img className="mb-4 text-center w-24" src={user?.image ?? ""} />
+                <Image className="mb-4" width={100} height={100} alt={user?.name} src={user?.image ?? ""} />
                 <p className="text-lg">{user?.name}</p>
                 <p className="text-sm text-neutral-600">{user?.email}</p>
             </div>
